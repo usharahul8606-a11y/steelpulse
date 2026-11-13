@@ -1,589 +1,414 @@
+# SteelPulse: Understanding and Predicting Steel Production Through Machine Learning
 
-Machine learning project for analysing steel production data and predicting production output using regression models.
-### **SteelPulse: Understanding and Predicting Steel Production Through Machine Learning*  
- 
+**Individual Project – Applied Machine and Deep Learning**  
+Montanuniversität Leoben  
+MSc Industrial Data Science  
+Winter Semester 2026/2027
 
-
-## Author Information
-
-| Field | Details |
-|---|---|
-| Author | Usha Rahul |
-| Date | November 12, 2026 |
-| University | Montanuniversität Leoben |
-| Programme | MSc Industrial Data Science |
-| Course | Applied Machine and Deep Learning |
-| Domain | Machine Learning |
-| Project Type | Individual Project |
-| Semester | Winter Semester 2026/2027 |
-| Project Title | SteelPulse: Understanding and Predicting Steel Production Through Machine Learning |
-| Supervisor / Professor | Linus Nwankwo |
-
-## 📑 Table of Contents
-
-1. 🌟 [Project Overview](#project-overview)
-2. 🎯 [Motivation and Objectives](#motivation-and-objectives)
-3. 📚 [Related Work](#related-work)
-4. 📊 [Dataset Description](#dataset-description)
-5. 🔍 [Data Exploration and Analysis](#data-exploration-and-analysis)
-6. 🛠️ [Data Preprocessing](#data-preprocessing)
-7. 🤖 [Machine Learning Models](#machine-learning-models)
-8. ⚙️ [Model Training and Hyperparameter Tuning](#model-training-and-hyperparameter-tuning)
-9. 📈 [Model Evaluation and Comparison](#model-evaluation-and-comparison)
-10. 🧪 [Data Augmentation](#data-augmentation)
-11. 📉 [Influence of Training Data Size](#influence-of-training-data-size)
-12. 🏆 [Key Findings and Discussion](#key-findings-and-discussion)
-13. 🚀 [Future Work](#future-work)
-14. 🧰 [Technologies Used](#technologies-used)
-15. 👩‍💻 [Author Information](#author-information)
-16. 📖 [References](#references)
+**Student:** Usha Rahul  
+**Supervisor / Course Instructor:** Linus Nwankwo  
+**Date:** November 2026
 
 ---
-
-# 🌟 SteelPulse: Understanding and Predicting Steel Production Through Machine Learning
 
 ## 1. Project Overview
 
-SteelPulse is an individual machine learning project developed as part of the Applied Machine and Deep Learning course at Montanuniversität Leoben.
+SteelPulse is an individual machine learning project focused on analysing steel-production data and predicting a continuous target variable using supervised regression techniques.
 
-The project focuses on analysing steel-production data and developing machine learning models to predict a continuous target variable using numerical process-related input features.
+The project uses a dataset containing 21 numerical input features (`input1` to `input21`) and one continuous target variable (`output`).
 
-The dataset contains 21 numerical input features (`input1` to `input21`) and one target variable (`output`). Different regression algorithms are investigated to understand their predictive performance and ability to generalise to unseen data.
+The main goal is to investigate how different machine learning regression models perform on the dataset, compare their predictive capabilities, and understand the factors affecting model performance.
 
-The project includes data exploration, statistical analysis, preprocessing, model development, hyperparameter tuning, model evaluation, data augmentation, and training-size experiments.
+The project includes data exploration, preprocessing, model development, hyperparameter tuning, cross-validation, model evaluation, data augmentation, and training dataset size analysis.
 
-The main aim is to investigate the potential and limitations of machine learning techniques for predicting steel-production output.
+## 2. Motivation
 
-## 2. 🎯 Motivation and Objectives
+Steel production involves complex processes in which multiple input variables can influence production outcomes.
 
-### Motivation
+Machine learning can help identify patterns in process-related data and develop predictive models. This project explores whether regression models can learn useful relationships between the available input features and the target variable.
 
-Steel manufacturing involves complex production processes influenced by several parameters. Understanding the relationships between these parameters and production outcomes can help improve process analysis and support data-driven decision-making.
+Since the physical meanings and units of the input features are not provided, the project focuses on statistical and predictive analysis rather than direct interpretation of individual steel-production parameters.
 
-Machine learning provides methods for analysing historical production data, identifying patterns, and predicting continuous outcomes. Different algorithms can capture different types of relationships between input variables and target values.
+## 3. Project Objectives
 
-This project explores how machine learning techniques can be applied to steel-production data while investigating challenges such as overfitting, data distribution differences, and model generalisation.
+The main objectives are:
 
-### Objectives
+- Explore and understand the dataset through statistical analysis and visualisation.
+- Identify missing values, duplicates, outliers, and correlations.
+- Clean and preprocess the combined dataset.
+- Apply appropriate feature normalization.
+- Develop and compare different regression models.
+- Perform hyperparameter tuning and cross-validation.
+- Evaluate model performance using suitable regression metrics.
+- Investigate the influence of training dataset size.
+- Examine whether data augmentation using Gaussian noise improves prediction performance.
+- Analyse residuals and feature importance.
+- Discuss model limitations and possible future improvements.
 
-The main objectives of this project are:
+## 4. Dataset Description
 
-- Explore and understand the available steel-production dataset.
-- Perform statistical analysis and visualise the distributions of input features.
-- Investigate correlations and relationships between input features and the target variable.
-- Apply appropriate data preprocessing techniques.
-- Develop multiple regression models.
-- Perform hyperparameter tuning to investigate model improvements.
-- Compare models using appropriate evaluation metrics.
-- Investigate the effect of data augmentation on model performance.
-- Evaluate how training dataset size influences predictive performance.
-- Analyse model limitations and generalisation to unseen data.
+The dataset was provided through the university cloud platform.
 
----
+**Dataset source:**  
+https://cloud.cps.unileoben.ac.at/index.php/s/xtsCHycaSiHsqHT
 
-## 🎯 2. Motivation and Objectives
+The original dataset consisted of two CSV files:
 
-### 💡 Motivation
-
-Steel manufacturing involves complex production processes influenced by multiple parameters. Understanding the relationships between these parameters and production outcomes is important for analysing manufacturing performance and supporting data-driven decision-making.
-
-Machine Learning (ML) provides powerful techniques for analysing historical production data, identifying hidden patterns, and predicting continuous outcomes.
-
-**SteelPulse** explores the application of machine learning techniques to steel-production data, with a focus on predictive modelling, performance evaluation, and model generalisation.
-
-### 🎯 Project Objectives
-
-The main objectives of this project are:
-
-| No. | Objective | Description |
-|:---:|---|---|
-| 01 | 📊 Data Exploration | Understand the dataset using descriptive statistics and visualisations. |
-| 02 | 🔍 Statistical Analysis | Investigate feature distributions and correlations. |
-| 03 | 🛠️ Data Preprocessing | Prepare the dataset for machine learning. |
-| 04 | 🤖 Model Development | Implement different regression algorithms. |
-| 05 | ⚙️ Hyperparameter Tuning | Investigate suitable model configurations. |
-| 06 | 📈 Model Evaluation | Compare models using appropriate evaluation metrics. |
-| 07 | 🧪 Data Augmentation | Investigate the effect of adding noise to training data. |
-| 08 | 📉 Training Data Analysis | Evaluate the influence of training dataset size. |
-| 09 | 🏆 Performance Analysis | Investigate model limitations and generalisation. |
-
-### 🔬 Expected Outcome
-
-The project aims to identify the strengths and limitations of different regression algorithms and understand how data characteristics and training strategies influence predictive performance.
-
----
-
-
----
-
-## 📚 3. Related Work
-
-Machine Learning (ML) has become an important tool in modern manufacturing. Researchers have investigated its use in production monitoring, quality prediction, process analysis, and the prediction of material properties.
-
-### 🔬 Previous Research
-
-**1. Machine Learning for Predictive Quality in Manufacturing (2022)**
-
-Tercan and Meisen reviewed machine learning and deep learning applications in manufacturing quality assurance. Their research explains how production data and quality measurements can be combined to develop predictive models.
-
-**Relevance to SteelPulse:** This research supports the use of data-driven machine learning methods to analyse manufacturing data and predict production-related outcomes.
-
-[Read Research Paper](https://doi.org/10.1007/s10845-022-01963-8)
-
-**2. Machine Learning-Based Performance Predictions for Steels (2024)**
-
-Fang et al. reviewed machine learning approaches for predicting steel performance using manufacturing process parameters. The study discusses the relationships between manufacturing conditions and steel properties, along with challenges involving data characteristics, feature analysis, and model optimisation.
-
-**Relevance to SteelPulse:** This research provides a direct connection to the use of machine learning for analysing steel-related data and predicting continuous outcomes.
-
-[Read Research Paper](https://doi.org/10.1007/s42243-024-01179-5)
-
-**3. Deep Learning Applications in Iron and Steel Making (2024)**
-
-Tsutsui et al. reviewed deep learning applications across different stages of iron and steel production. Their research discusses neural networks and other deep learning techniques for process prediction, anomaly detection, and product evaluation.
-
-**Relevance to SteelPulse:** This study demonstrates the potential of neural network approaches, including Multi-Layer Perceptrons (MLPs), for analysing industrial production data.
-
-[Read Research Paper](https://doi.org/10.2355/isijinternational.ISIJINT-2024-098)
-
-### 📌 Research Gap and Project Contribution
-
-Previous research demonstrates the potential of machine learning and deep learning in manufacturing and steel-related applications.
-
-Building on these studies, SteelPulse investigates and compares multiple regression algorithms using an available numerical steel-production dataset.
-
-The project focuses on:
-
-- Comparing different regression algorithms.
-- Investigating relationships between input features and the target variable.
-- Evaluating model performance using multiple metrics.
-- Studying the influence of training data size and data augmentation.
-- Examining the challenges of model generalisation to unseen data.
-
-The project aims to provide a practical comparison of machine learning approaches and identify their strengths and limitations when applied to the available dataset.
-
-### 📖 References
-
-1. Tercan, H., & Meisen, T. (2022). *Machine learning and deep learning based predictive quality in manufacturing: A systematic review.* Journal of Intelligent Manufacturing, 33, 1879–1905. https://doi.org/10.1007/s10845-022-01963-8
-
-2. Fang, W., Huang, J.-X., Peng, T.-X., Long, Y., & Yin, F.-X. (2024). *Machine learning-based performance predictions for steels considering manufacturing process parameters: A review.* Journal of Iron and Steel Research International, 31, 1555–1581. https://doi.org/10.1007/s42243-024-01179-5
-
-3. Tsutsui, K., Namba, T., Kihara, K., Hirata, J., Matsuo, S., & Ito, K. (2024). *Current Trends on Deep Learning Techniques Applied in Iron and Steel Making Field: A Review.* ISIJ International, 64(11), 1619–1640. https://doi.org/10.2355/isijinternational.ISIJINT-2024-098
-
----
-
----
-
-## 📊 4. Dataset Description
-
-### 📁 Dataset Overview
-
-The dataset used in this project contains numerical data related to steel production. It is used to investigate relationships between process-related input variables and a continuous target variable.
-
-The dataset is divided into separate training and testing files.
-
-### 📌 Dataset Information
-
-| Property | Description |
-|---|---|
-| Dataset Type | Numerical |
-| Training Samples | 7,642 |
-| Testing Samples | 3,337 |
-| Total Samples | 10,979 |
-| Input Features | 21 |
-| Target Variable | `output` |
-| Machine Learning Task | Supervised Regression |
-| Data Format | CSV |
-| Feature Names | `input1` to `input21` |
-
-### 🔢 Dataset Structure
-
-The dataset contains 22 columns:
-
-- **Input Features:** `input1`, `input2`, ..., `input21`
-- **Target Variable:** `output`
-
-The 21 input features are used by the machine learning models to predict the continuous target variable `output`.
-
-*Note: The physical meanings and units of the individual input features are not provided in the available dataset documentation.*
-
-### 📂 Dataset Files
-
-| File Name | Description |
-|---|---|
-| `train_data.csv` | Dataset used for model training and validation. |
-| `test_data.csv` | Separate dataset reserved for final model evaluation. |
-
-### 🔍 Initial Data Characteristics
-
-- All columns contain numerical values.
-- All values are within the range of 0 to 1.
-- No missing values were identified during the initial inspection.
-- No constant features were identified.
-- No duplicate rows were identified within either dataset.
-
-### 🔗 Dataset Source
-
-The dataset was provided through the university course resources.
-
-[Access the University Dataset](https://cloud.cps.unileoben.ac.at/index.php/s/xtsCHycaSiHsqHT)
-
----
-
-
----
-
-## 🔍 5. Data Exploration and Analysis
-
-Exploratory Data Analysis (EDA) was performed to understand the structure, distribution, and relationships within the steel-production dataset before applying machine learning algorithms.
-
-### 📊 5.1 Descriptive Statistical Analysis
-
-Descriptive statistics were used to understand the numerical characteristics of the dataset.
-
-The analysis included:
-
-- Mean and median values.
-- Standard deviation.
-- Minimum and maximum values.
-- First and third quartiles.
-- Distribution of input features and target variable.
-
-### 📈 5.2 Feature Distribution Analysis
-
-Histograms were used to visualise the distributions of the 21 input features and the target variable (`output`).
-
-This analysis helps identify:
-
-- Distribution patterns.
-- Concentration of values.
-- Skewness in numerical features.
-- Differences in the range and spread of variables.
-
-### 🔗 5.3 Correlation Analysis
-
-Pearson correlation analysis was performed to investigate linear relationships between the input features and the target variable.
-
-The strongest observed correlations with the target variable in the training dataset were:
-
-| Feature | Pearson Correlation |
-|---|---:|
-| `input4` | -0.271 |
-| `input3` | -0.209 |
-| `input2` | -0.187 |
-| `input1` | -0.143 |
-| `input13` | +0.107 |
-| `input20` | +0.106 |
-
-The results indicate that most individual input features have relatively weak linear correlations with the target variable.
-
-However, weak individual correlation does not necessarily mean that a feature is unimportant for machine learning prediction.
-
-### ⚠️ 5.4 Outlier Analysis
-
-The Interquartile Range (IQR) method was used to identify potential outliers in the numerical variables.
-
-The analysis identified 286 potential outliers in the training target variable.
-
-These observations were not automatically removed because extreme values may represent valid production-related observations rather than data errors.
-
-### 🔄 5.5 Feature Relationship Analysis
-
-Correlation analysis between input features identified some strongly correlated pairs:
-
-| Feature Pair | Pearson Correlation |
-|---|---:|
-| `input1` and `input6` | -0.955 |
-| `input12` and `input21` | +0.868 |
-
-These relationships indicate that some input variables contain overlapping linear information.
-
-The features were retained for subsequent model development.
-
-### 📌 5.6 Key Observations
-
-- The dataset contains numerical features with values between 0 and 1.
-- Several input features show weak individual linear relationships with the target.
-- Some input features are strongly correlated with each other.
-- Potential outliers were identified using the IQR method.
-- Further analysis is required to understand differences between the training and testing datasets.
-
----
-
----
-
-## 🛠️ 6. Data Preprocessing
-
-Data preprocessing is an important step in preparing the dataset for machine learning. The objective is to ensure that the data is suitable for model development and evaluation.
-
-### 🔍 6.1 Data Quality Checks
-
-The following checks were performed:
-
-- Checked the dataset structure and data types.
-- Identified missing values.
-- Checked for duplicate observations.
-- Identified constant features.
-- Examined the numerical ranges of the variables.
-
-No missing values, duplicate rows within either dataset, or constant features were identified.
-
-### 🎯 6.2 Feature and Target Separation
-
-The dataset was separated into input features and the target variable.
-
-- **X:** 21 input features (`input1` to `input21`).
-- **y:** Target variable (`output`).
-
-The input features were used to train the regression models, while the target variable represented the values to be predicted.
-
-### ✂️ 6.3 Training and Validation Split
-
-The original training dataset was divided into two subsets:
-
-| Dataset | Percentage | Observations |
+| Dataset | Number of observations | Number of columns |
 |---|---:|---:|
-| Training subset | 80% | 6,113 |
-| Validation subset | 20% | 1,529 |
-| Original test dataset | Separate | 3,337 |
+| Original training data | 7,642 | 22 |
+| Original testing data | 3,337 | 22 |
+| Combined dataset | 10,979 | 22 |
 
-A random split was performed using `random_state=42` to ensure reproducibility.
+### Dataset features
 
-The validation dataset was used for model comparison and model selection.
+- **Input features:** `input1` to `input21`
+- **Target variable:** `output`
+- **Problem type:** Supervised regression
+- **Data type:** Numerical
 
-The separate test dataset was reserved for final evaluation.
+The original training and testing files were combined before preprocessing, following the project instructions. The combined dataset was subsequently divided into new training, validation, and testing subsets.
 
-### 📏 6.4 Feature Scaling
+## 5. Exploratory Data Analysis (EDA)
 
-StandardScaler was applied to models that are sensitive to the scale of input features.
+Exploratory data analysis was performed to understand the dataset's structure, distribution, and relationships.
 
-The scaling transformation was incorporated into machine learning pipelines to ensure that the scaler was fitted using training data only and then applied to validation and test data.
+The following analyses were conducted:
 
-Random Forest Regression was used without standard scaling because tree-based models do not generally require feature standardisation.
+- Dataset information and descriptive statistics.
+- Target variable distribution using histograms.
+- Input feature distribution analysis.
+- Pearson correlation analysis between input features and the target.
+- Feature-to-feature correlation analysis.
+- IQR-based outlier detection.
+- Data quality checks for missing values, duplicates, infinite values, and invalid numerical values.
 
-### ⚠️ 6.5 Data Handling Considerations
+### Key observations
 
-Potential outliers were investigated but not automatically removed.
+- No missing values or duplicate rows were identified.
+- All input features were numerical.
+- All values were within the observed range of 0 to 1.
+- Approximately 75.85% of target observations were between 0.4 and 0.6.
+- Several input features showed strong correlations with other input features.
 
-The original test dataset was kept separate during model training and hyperparameter tuning to avoid data leakage.
+These observations were considered during preprocessing and model development.
 
-Differences between the training and test feature distributions were also investigated as part of the model generalisation analysis.
+## 6. Data Preprocessing
 
----
+The following preprocessing workflow was implemented:
 
----
+1. Loaded the original training and testing CSV files.
+2. Combined both datasets into one dataset.
+3. Inspected the combined data for missing values, duplicates, and invalid values.
+4. Investigated statistical outliers using the Interquartile Range (IQR) method.
+5. Separated the input features and target variable.
+6. Split the combined dataset into training, validation, and testing subsets.
+7. Applied MinMaxScaler to the input features.
 
-## 🤖 7. Machine Learning Models
+### Data splitting
 
-Four supervised machine learning regression algorithms were implemented to investigate their ability to predict the target variable (`output`) using the 21 numerical input features.
-
-### 7.1 Linear Regression
-
-**Linear Regression** is a statistical learning algorithm that models the relationship between input features and a continuous target variable using a linear equation.
-
-It was selected as a baseline model to understand how well a simple linear approach can predict steel-production output.
-
-**Key Characteristics:**
-- Simple and interpretable.
-- Assumes a linear relationship between features and target.
-- Provides a baseline for comparison with more complex models.
-
-### 7.2 Random Forest Regression
-
-**Random Forest Regression** is an ensemble learning algorithm that combines multiple decision trees to generate predictions.
-
-Each tree produces a prediction, and the final output is calculated by averaging the predictions from all trees.
-
-**Key Characteristics:**
-- Captures nonlinear relationships.
-- Can model complex feature interactions.
-- Reduces dependence on a single decision tree.
-- May overfit if model complexity is not controlled.
-
-### 7.3 Support Vector Regression (SVR)
-
-**Support Vector Regression (SVR)** is based on Support Vector Machines and is designed to predict continuous numerical values.
-
-An RBF (Radial Basis Function) kernel was used to capture potentially nonlinear relationships between the input features and target variable.
-
-**Key Characteristics:**
-- Can model nonlinear relationships using kernels.
-- Uses a margin-based approach to regression.
-- Sensitive to parameter selection and feature scaling.
-
-### 7.4 Multi-Layer Perceptron (MLP)
-
-**Multi-Layer Perceptron (MLP)** is a feedforward artificial neural network consisting of an input layer, hidden layers, and an output layer.
-
-The MLP model was implemented with two hidden layers containing 64 and 32 neurons, respectively.
-
-**Key Characteristics:**
-- Learns complex nonlinear relationships.
-- Uses interconnected neurons and activation functions.
-- Requires suitable training parameters.
-- May require more data and tuning to achieve good generalisation.
-
-### 📋 7.5 Model Configuration
-
-| Model | Configuration |
-|---|---|
-| Linear Regression | StandardScaler + LinearRegression |
-| Random Forest | 100 trees, random_state=42 |
-| SVR | StandardScaler + RBF kernel |
-| MLP | StandardScaler + hidden layers (64, 32), max_iter=1000, early_stopping=True |
-
-### 🎯 7.6 Model Selection Strategy
-
-The four algorithms were selected to compare different approaches to regression:
-
-- Linear Regression provides a simple baseline.
-- Random Forest captures nonlinear patterns using decision trees.
-- SVR investigates kernel-based regression.
-- MLP explores neural-network-based prediction.
-
-Their performance was compared using consistent validation data and evaluation metrics.
-
----
-
----
-
-## ⚙️ 8. Model Training and Hyperparameter Tuning
-
-The selected regression models were trained using the training subset and evaluated using the validation subset.
-
-### 8.1 Model Training
-
-The four regression algorithms were trained using the same training-validation split to ensure a fair comparison.
-
-The models were:
-
-- Linear Regression
-- Random Forest Regression
-- Support Vector Regression (SVR)
-- Multi-Layer Perceptron (MLP)
-
-### 8.2 Cross-Validation
-
-Five-fold cross-validation was performed to obtain a more reliable estimate of model performance.
-
-The training data was divided into five folds. In each iteration, four folds were used for training and the remaining fold was used for validation.
-
-This process was repeated five times, with each fold used once for validation.
-
-The mean and standard deviation of the evaluation metrics were calculated to compare model performance and consistency.
-
-### 8.3 Hyperparameter Tuning
-
-RandomizedSearchCV was applied to the Random Forest model to investigate whether different hyperparameter combinations could improve predictive performance.
-
-The search evaluated 30 parameter combinations using five-fold cross-validation.
-
-The following hyperparameters were investigated:
-
-- `n_estimators`
-- `max_depth`
-- `min_samples_split`
-- `min_samples_leaf`
-- `max_features`
-
-### 8.4 Best Hyperparameters
-
-The best parameter combination identified by RandomizedSearchCV was:
-
-| Hyperparameter | Selected Value |
-|---|---:|
-| `n_estimators` | 300 |
-| `max_depth` | 20 |
-| `min_samples_split` | 10 |
-| `min_samples_leaf` | 1 |
-| `max_features` | 0.7 |
-
-The best cross-validation RMSE was approximately 0.0606.
-
-### 8.5 Baseline vs Tuned Random Forest
-
-| Metric | Baseline Random Forest | Tuned Random Forest |
+| Subset | Samples | Percentage |
 |---|---:|---:|
-| Validation MAE | 0.0455 | 0.0457 |
-| Validation RMSE | 0.0619 | 0.0621 |
-| Validation R² | 0.4231 | 0.4203 |
+| Training | 7,685 | 70% |
+| Validation | 1,647 | 15% |
+| Testing | 1,647 | 15% |
+| Total | 10,979 | 100% |
 
-The tuned Random Forest did not improve validation performance compared with the baseline model.
+The scaler was fitted only on the training data and then applied to the validation and testing data to prevent data leakage.
 
-Therefore, the baseline Random Forest was retained for final model evaluation.
+The target variable was kept on its original scale to maintain interpretable regression results.
 
-### 📌 Key Observation
+Statistical outliers were investigated but not automatically removed because extreme values are not necessarily data errors.
 
-Hyperparameter tuning does not always improve model performance. In this experiment, the baseline Random Forest achieved slightly better validation results than the tuned version.
+## 7. Machine Learning Models
 
----
+Three regression model families were developed and evaluated.
 
----
+### Model I: Random Forest Regression
 
-## 📈 9. Model Evaluation and Comparison
+Random Forest is an ensemble learning method that combines predictions from multiple decision trees.
 
-The performance of the four regression models was evaluated using standard regression metrics. The evaluation was conducted on the validation dataset to compare their predictive capabilities.
+Experiments included:
 
-### 9.1 Evaluation Metrics
+- Initial Random Forest model.
+- Hyperparameter tuning using RandomizedSearchCV.
+- Five-fold cross-validation.
+- Training dataset size experiments.
 
-The following metrics were used:
+Best parameters:
 
-| Metric | Description |
-|---|---|
-| MAE | Measures the average absolute prediction error. |
-| MSE | Measures the average squared prediction error. |
-| RMSE | Measures prediction error in the original target scale, with larger errors penalised more heavily. |
-| R² Score | Measures how much target variation is explained by the model relative to a mean-prediction baseline. |
+```python
+{
+    'n_estimators': 300,
+    'max_depth': 20,
+    'min_samples_split': 5,
+    'min_samples_leaf': 2,
+    'max_features': 0.9
+}
+```
 
-Lower MAE, MSE and RMSE values indicate better predictive accuracy. Higher R² values generally indicate better performance.
+### Model II: Gradient Boosting Regression
 
-### 9.2 Validation Performance
+Gradient Boosting is an ensemble learning method that builds decision trees sequentially, with each new tree attempting to correct errors made by previous trees.
 
-The following table presents the validation results obtained from the four regression models.
+Experiments included:
 
-| Model | MAE | MSE | RMSE | R² |
-|---|---:|---:|---:|---:|
-| Linear Regression | 0.0590 | 0.0059 | 0.0770 | 0.1090 |
-| Random Forest | 0.0455 | 0.0038 | 0.0619 | 0.4231 |
-| SVR | 0.0560 | 0.0054 | 0.0734 | 0.1907 |
-| MLP | 0.0654 | 0.0075 | 0.0867 | -0.1295 |
+- Initial Gradient Boosting model.
+- Hyperparameter tuning using RandomizedSearchCV.
+- Five-fold cross-validation.
+- Final model selection and independent test evaluation.
+- Feature importance analysis.
 
-### 9.3 Cross-Validation Results
+Best parameters:
 
-Five-fold cross-validation was used to investigate the consistency of model performance.
+```python
+{
+    'subsample': 0.7,
+    'n_estimators': 500,
+    'min_samples_split': 15,
+    'min_samples_leaf': 4,
+    'max_features': 0.7,
+    'max_depth': 5,
+    'learning_rate': 0.05
+}
+```
 
-| Model | Mean R² | Mean RMSE | Mean MAE |
+### Model III: Support Vector Regression (SVR)
+
+Support Vector Regression was implemented using an RBF kernel to capture nonlinear relationships between input features and the target variable.
+
+Experiments included:
+
+- Initial SVR model.
+- Hyperparameter tuning using RandomizedSearchCV.
+- Five-fold cross-validation.
+- Validation performance evaluation.
+
+Best parameters:
+
+```python
+{
+    'C': 10,
+    'epsilon': 0.05,
+    'gamma': 'scale'
+}
+```
+
+## 8. Model Evaluation
+
+Model performance was evaluated using the following regression metrics:
+
+- **Mean Absolute Error (MAE):** Measures the average absolute difference between actual and predicted values.
+- **Mean Squared Error (MSE):** Measures the average squared prediction error.
+- **Root Mean Squared Error (RMSE):** Represents the square root of MSE and penalises larger errors.
+- **Coefficient of Determination (R²):** Measures the proportion of target variance explained by the model.
+
+Five-fold cross-validation was used to compare the final three model families.
+
+### Cross-validation results
+
+| Model | Mean MAE | Mean RMSE | Mean R² |
 |---|---:|---:|---:|
-| Linear Regression | 0.1733 | 0.0757 | 0.0585 |
-| Random Forest | 0.4699 | 0.0606 | 0.0453 |
-| SVR | 0.2477 | 0.0723 | 0.0562 |
-| MLP | -0.0822 | 0.0866 | 0.0659 |
+| Random Forest | 0.05054 | 0.06736 | 0.48246 |
+| Gradient Boosting | 0.05007 | 0.06669 | 0.49259 |
+| SVR | 0.05493 | 0.07282 | 0.39530 |
 
-### 9.4 Final Test Performance
+Gradient Boosting achieved the best average cross-validation results among the three models.
 
-After selecting the baseline Random Forest model, it was retrained using the complete original training dataset and evaluated on the separate test dataset.
+## 9. Final Model and Test Results
 
-| Metric | Test Result |
+Gradient Boosting was selected as the final model based on its cross-validation performance.
+
+The selected model was retrained using the combined training and validation data, containing 9,332 observations, and evaluated once on the independent test set containing 1,647 observations.
+
+### Final test performance
+
+| Metric | Result |
 |---|---:|
-| MAE | 0.1347 |
-| MSE | 0.0259 |
-| RMSE | 0.1610 |
-| R² | -1.8975 |
+| MAE | 0.04829 |
+| MSE | 0.00434 |
+| RMSE | 0.06587 |
+| R² | 0.46689 |
 
-### 9.5 Performance Analysis
+The model achieved better performance than a simple mean-prediction baseline.
 
-The Random Forest model achieved the best validation performance among the four algorithms, with a validation R² score of 0.4231.
+| Model | MAE | RMSE | R² |
+|---|---:|---:|---:|
+| Mean Baseline | 0.06901 | 0.09024 | -0.00065 |
+| Gradient Boosting | 0.04829 | 0.06587 | 0.46689 |
 
-However, its final test performance was considerably worse, with an R² score of -1.8975.
+Compared with the baseline, Gradient Boosting reduced MAE by approximately 30.02% and RMSE by approximately 27.01%.
 
-A negative R² score indicates that the model performed worse than a baseline that predicts the mean of the actual test targets.
+An R² of 0.46689 indicates that the model explains approximately 46.7% of the variance in the test target values. It does not represent prediction accuracy as a percentage.
 
-This difference suggests that the model did not generalise well to the supplied test dataset.
+## 10. Data Augmentation
 
-Further investigation identified substantial differences between the training and test feature distributions. These differences may contribute to the poor test performance.
+Data augmentation was investigated by adding Gaussian noise to the training input features.
 
-### 🏆 Overall Observation
+Three noise levels were tested:
 
-Random Forest was the strongest model during validation and cross-validation. However, its poor test performance highlights the importance of investigating dataset characteristics and generalisation before drawing conclusions about model reliability.
+- 0.01
+- 0.03
+- 0.05
+
+The original training observations were combined with their noisy copies, while the target values remained unchanged.
+
+Experiments were repeated using five random seeds.
+
+### Average results across five seeds
+
+| Experiment | Mean MAE | Mean RMSE | Mean R² |
+|---|---:|---:|---:|
+| Original Data | 0.04758 | 0.06430 | 0.48515 |
+| Noise 0.01 | 0.04743 | 0.06396 | 0.49053 |
+| Noise 0.03 | 0.04800 | 0.06481 | 0.47687 |
+| Noise 0.05 | 0.04832 | 0.06505 | 0.47292 |
+
+A small noise level of 0.01 produced a modest improvement in average RMSE and R². Higher noise levels reduced performance.
+
+The physical validity of the generated noise could not be confirmed because the input variables' industrial meanings were unavailable.
+
+## 11. Influence of Training Dataset Size
+
+The influence of training dataset size was investigated using different fractions of the training data:
+
+- 20%
+- 40%
+- 60%
+- 80%
+- 100%
+
+The tuned Random Forest model was evaluated on the same validation dataset for each training size.
+
+### Results
+
+| Training Size | Number of Samples | MAE | RMSE | R² |
+|---|---:|---:|---:|---:|
+| 20% | 1,537 | 0.0546 | 0.0725 | 0.3454 |
+| 40% | 3,074 | 0.0515 | 0.0690 | 0.4071 |
+| 60% | 4,611 | 0.0493 | 0.0664 | 0.4515 |
+| 80% | 6,148 | 0.0486 | 0.0656 | 0.4635 |
+| 100% | 7,685 | 0.0474 | 0.0641 | 0.4877 |
+
+The results indicate that increasing the training dataset size improved validation performance. However, the improvements became smaller as more training data was added.
+
+## 12. Residual Analysis
+
+Residual analysis was conducted to investigate the differences between actual and predicted target values.
+
+The final Gradient Boosting model achieved a mean test residual of approximately 0.00151.
+
+The model performed better in the dominant target range of 0.4–0.6, where most observations were concentrated.
+
+Larger prediction errors occurred in the less frequent lower and upper target ranges. This suggests that the model has difficulty predicting extreme values when relatively few training examples are available.
+
+## 13. Feature Importance
+
+Two feature importance methods were investigated.
+
+### Built-in Gradient Boosting Feature Importance
+
+The five highest feature importance scores were:
+
+1. `input6`
+2. `input4`
+3. `input19`
+4. `input3`
+5. `input2`
+
+### Permutation Feature Importance
+
+Permutation importance was calculated using the independent test dataset.
+
+The five most influential features were:
+
+1. `input6`
+2. `input4`
+3. `input1`
+4. `input19`
+5. `input2`
+
+Both methods identified `input6` and `input4` as the most influential features.
+
+However, correlations between input variables can affect individual importance rankings. The physical significance of these features cannot be determined without further information about the dataset.
+
+## 14. Limitations
+
+The project has several limitations:
+
+- The physical meanings and measurement units of the input variables are unknown.
+- The target distribution is concentrated mainly between 0.4 and 0.6, with few extreme observations.
+- A random train-validation-test split was used instead of a time-based or production-batch-based split.
+- Cross-validation was not nested, so model-selection performance estimates may be somewhat optimistic.
+- The physical validity of Gaussian noise augmentation could not be confirmed.
+- Further validation using representative industrial data is required before considering real-world deployment.
+
+## 15. Future Work
+
+Potential future improvements include:
+
+- Obtaining physical descriptions and units for the input variables.
+- Testing additional regression algorithms such as XGBoost, LightGBM, and neural networks.
+- Collecting more representative data for extreme target values.
+- Investigating SHAP values and partial dependence plots for improved model interpretation.
+- Applying time-based or group-based validation if production timestamps or batch identifiers become available.
+- Exploring physically meaningful data augmentation methods.
+- Investigating nested cross-validation for more rigorous model selection.
+
+## 16. Technologies Used
+
+- Python
+- Jupyter Notebook
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+
+## 17. Project Structure
+
+```text
+SteelPulse/
+│
+├── README.md
+│
+├── SteelPulse_ML_Project.ipynb
+│
+├── data/
+│   ├── original_training_data.csv
+│   └── original_testing_data.csv
+│
+└── results/
+    ├── figures/
+    └── tables/
+```
+
+*Note: The folder structure above is a suggested organisation. Adjust it to match the actual files in your repository.*
+
+## 18. How to Run the Project
+
+1. Clone or download the repository.
+2. Install the required Python libraries.
+3. Download the original dataset from the university cloud link.
+4. Place the CSV files in the appropriate data directory.
+5. Open `SteelPulse_ML_Project.ipynb` in Jupyter Notebook.
+6. Run the notebook cells from beginning to end.
+
+Install the required libraries using:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
+
+## 19. References
+
+- Tercan, H., & Meisen, T. (2022). Machine learning and deep learning based predictive quality in manufacturing: A systematic review.
+- Fang, et al. (2024). Relevant research on machine learning applications in steel production and manufacturing.
+- Tsutsui, et al. (2024). Relevant research on machine learning and data-driven approaches in materials and manufacturing.
 
 ---
+
+**Project:** SteelPulse – Understanding and Predicting Steel Production Through Machine Learning  
+**Course:** Applied Machine and Deep Learning  
+**Institution:** Montanuniversität Leoben  
+**Semester:** Winter Semester 2026/2027
